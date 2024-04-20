@@ -61,31 +61,13 @@ function AddPreProduct(){
     console.log(dictPreProduct)
 
     //add to the list on the right side
-    
-    
     var newElement = document.createElement("li")
     newElement.innerText = dictPreProduct["Name"]
-    
+    newElement.id = "final"+dictPreProduct["Name"]
     PreProductsListFinal.appendChild(newElement)
-    
-
 
     for (let i = 0; i < NumberOfPreProducts.value ; i++){
-        //name of pre product
-        var PreProductNameTextField = document.createElement("textarea")
-        PreProductNameTextField.className = "TextArea"
-        PreProductNameTextField.id = "PreProduct" + i
-        PreProductNameTextField.placeholder = "Enter Name of " + PreProductNameTextField.id
-
-        //production time of pre product
-        var PreProductProductionTextField = document.createElement("textarea")
-        PreProductProductionTextField.className = "TextAreaNumber"
-        PreProductProductionTextField.id = "PreProductProductionTime" + i
-        PreProductProductionTextField.placeholder = "Time"
         
-        PreProductsListElement.appendChild(document.createElement("br"))
-        PreProductsListElement.appendChild(PreProductNameTextField)
-        PreProductsListElement.appendChild(PreProductProductionTextField)
     }
 
 }
