@@ -8,21 +8,43 @@
 </head>
 <body>
     <script src="AddPreProduct.js"></script>
-    <h1>Add pre product:</h1>
-    <textarea class="TextArea" id="PreProductText" placeholder="Name of Pre-Product"></textarea>
+
+    <h1>Calculate MRP for your product!</h1>
+    
     <br>
-    <p>How many pre products of your pre product?</p>
-    <select id="PreProductLevel">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-    </select>
 
+    <div>
+        <div class="column1">
+            <h2>Add pre product:</h2>
+            <textarea class="TextArea" id="PreProductText" placeholder="Name of Pre-Product"></textarea>
+            <br>
+            <p>How many pre products does your pre product contain and how long does it take to product them?</p>
+            <select id="PreProductLevel" onchange="ListPreProducts()">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
 
-    <br><br><br><br>
-    <button id="AddPreProduct", class="button"> Add </button>
+            <lu id="PreProductsList">
+                
+            </lu>
 
+            <br><br>
+            <button id="AddPreProduct", class="button" onclick="AddPreProduct()"> Add </button>
+        </div>
+        <div class="column2">
+            
+            <h2>Your product contains:</h2>
+            <textarea class="TextArea" id="ProductText" placeholder="Name of Product"></textarea>
+            <h2>Pre products:</h2>
+            
+            <lu id="PreProductsListFinal">
+                
+            </lu>
 
+        </div>
+    </div>
 </body>
 </html>
