@@ -1,0 +1,61 @@
+przyporzadkowanie ilosci do dni (sposob wypelniania tabeli danymi):
+
+potrzeby brutto:
+    ilosc: <podana>
+    dzien: <podany>
+
+wstepny zapas:
+    ilosc: <podana>
+    dzien: <od dnia poprzedniego zlecenia na nogi lub poczatku kalendarza 
+    kazdy dzien do potrzeby brutto>
+
+potrzeby netto:
+    ilosc: <potrzeby brutto> - <wstepny zapas>
+    dzien: <potrzeby brutto>
+
+wstepne zmontowanie:
+    ilosc: <potrzeby netto>
+    dzien: <potrzeby brutto> - <podany czas na zmontowanie>
+
+zaplanowany odbior:
+    ilosc: <potrzeby netto> 
+    dzien: <potrzeby netto>
+(chyba ze dodamy zmienna ile czasu trwa dostawa do klienta ale tego nigdzie nie bylo wymagane)
+
+wszystko dodajemy do jednej tabeli
+    pre-produkty maja nazwy a, b, c,
+    w legendzie podpisane np. a - noga, b - blat, c- sklejka 
+    w tabeli np pn > 10a, 10b, 10c
+    prepre-produkty to np. 10aa, 10ab, 10ac, 10ba, 10bb, 10bc
+    przykladowy kod:
+        if p01 >= 10a & p02 >=10b:
+            p2= p2-p1*4 #obliczenie ile zostanie reszty preproduktow z budowy produktu
+
+#obliczanie wstecz potrzebnych pre-produktow na podstawie liczby wymaganych produktow:
+#safety stock pre-produktow ustalamy na 20% zaokraglone w gore do liczb calkowitych
+
+
+#zamowienie na 3 stoly:
+
+    stolyPotrzebne = 3
+
+    nogiPotrzebne = 4 * stolyZamowienie
+    blatyPotrzebne = 1 * stolyZamowienie
+
+
+# jesli 20% zapasu to bedzie liczba niecalkowita to zaokraglamy zamowienie w gore
+#odciecie wartosci po przecinku i dodanie 1 dla zaokraglenia w gore 20% safety stock
+    
+    nogiZapas = trunc(0.2*nogiPotrzebne)
+    if nogiZapas%1 != 0:
+        nogiZapas += 1
+
+    blatZapas = trunc(0.2*blatyPotrzebne)
+    if blatyZapas%1 != 0:
+        blatyZapas += 1
+
+    nogiZamowienie = nogiPotrzebne + nogiZapas
+    blatyZamowienie = blatyPotrzebne + blatyZapas
+
+
+    
