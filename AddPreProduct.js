@@ -67,8 +67,3 @@ function AddPreProduct() {
 
     for (let i = 0; i < NumberOfPreProducts.value; i++) {}
 }
-
-function createTables() {
-    const tablesContainer = document.getElementById("tablesContainer");
-    
-}

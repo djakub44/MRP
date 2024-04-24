@@ -1,0 +1,41 @@
+{
+    "product": {
+        "name": "Table",
+        "grossDemand": 10,
+        "preliminaryStock": 3,
+        "netDemand": 7,
+        "preMounted": 7,
+        "scheduledPickup": 7,
+        "productionTime": 1,
+        "deadline": 8,
+        "preProducts": [
+            {
+                "name": "Tabletop",
+                "grossDemand": 7,
+                "preliminaryStock": 0,
+                "netDemand": 7,
+                "preMounted": 7,
+                "scheduledPickup": 7,
+                "preProducts": []
+            },
+            {
+                "name": "Table leg",
+                "grossDemand": 28,
+                "preliminaryStock": 0,
+                "netDemand": 28,
+                "preMounted": 28,
+                "scheduledPickup": 28,
+                "preProducts": [
+                    {
+                        "name": "leg screws",
+                        "grossDemand": 28,
+                        "preliminaryStock": 0,
+                        "netDemand": 28,
+                        "preMounted": 28,
+                        "scheduledPickup": 7,
+                        "preProducts": []}
+                ]
+            }
+        ]
+    }
+}
