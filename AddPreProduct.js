@@ -12,10 +12,10 @@ function ClearListPreProducts() {
 function ListPreProducts() {
     const PreProductsListElement = document.getElementById("PreProductsList");
     const NumberOfPreProducts = document.getElementById("PreProductLevel");
-
+    
     //clear list
     ClearListPreProducts();
-
+    console.log(NumberOfPreProducts.value)
     //append list
     for (let i = 0; i < NumberOfPreProducts.value; i++) {
         //name of pre product

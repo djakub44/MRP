@@ -9,10 +9,16 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/js-beautify@1.13.0/js/lib/beautify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-beautify@1.13.0/js/lib/beautify-html.js"></script>
 </head>
 
 <body>
     <script src="AddPreProduct.js"></script>
+    <script src="FunctionsLib.js"></script>
+    <script src="OnLoad.js"></script>
+
 
     <div class="container-lg">
         <div class="d-flex justify-content-center w-100">
@@ -21,7 +27,7 @@
         <div>
             <div class="py-5">
                 <div class="d-flex">
-                    <h2>Add pre product:</h2>
+                    <h2>Add product:</h2>
                 </div>
                 <div class="d-flex">
                     <input type="text" class="form-control w-25" id="PreProductText"
@@ -30,7 +36,28 @@
                         placeholder="Quantity of product"></input>
                     <input type="number" class="form-control w-25 ml-2" id="productCollectionDate"
                         placeholder="Pre-mounted amount"></input>
+                        
+                        
                 </div>
+                <br><br>
+                <div class="d-flex">
+                    <h2>Add pre product:</h2>
+                </div>
+                <p>Choose main product or pre product from the list and add pre products</p>
+                <div class="d-flex">
+                    <select class="form-control w-25" id="PreProductName" onchange="">
+                        <option value="MainProduct">MainProduct</option>
+
+                    </select>
+                    <input type="text" class="form-control w-25" id="PreProductText"
+                        placeholder="Name of pre product"></input>
+                    <input type="number" class="form-control w-25 ml-2" id="PreProductQuantity"
+                        placeholder="Quantity of product"></input>
+                    <input type="number" class="form-control w-25 ml-2" id="productCollectionDate"
+                        placeholder="Pre-mounted amount"></input>
+                        
+                </div>
+
                 <div class="d-flex">
                     <p>How many pre products does your pre product contain and how long does it take to product them?
                     </p>
@@ -126,6 +153,13 @@
 
         </div>
     </div> -->
+
+    <code id="productcode">
+
+
+    </code>
+
+    
     <!-- Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

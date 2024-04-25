@@ -1,0 +1,274 @@
+---------------- co z czego wynika z inputu ------------------
+przyporzadkowanie ilosci do dni (sposob wypelniania tabeli danymi):
+
+potrzeby brutto:
+    ilosc: <podana>
+    tydzien: <podany>
+
+wstepny zapas:
+    ilosc: <podana>
+    tydzien: <od dnia poprzedniego zlecenia na nogi lub poczatku kalendarza 
+    kazdy tydzien do potrzeby brutto>
+
+potrzeby netto:
+    ilosc: <potrzeby brutto> - <wstepny zapas>
+    tydzien: <potrzeby brutto>
+
+wstepne zmontowanie:
+    ilosc: <potrzeby netto>
+    tydzien: <potrzeby brutto> - <podany czas na zmontowanie>
+
+zaplanowany odbior:
+    ilosc: <potrzeby netto> 
+    tydzien: <potrzeby netto>
+(chyba ze dodamy zmienna ile czasu trwa dostawa do klienta ale tego nigdzie nie bylo wymagane)
+
+
+sposob zapisu wszystkich rzedow w 1 tabeli:
+
+    pre-produkty maja nazwy a, b, c;
+    prepre-produkty maja nazwy aa, ab, ac, ba, bb, bc;
+
+    w legendzie podpisane np. a - noga, b - blat, aa - wkret, ab - walek, ba - sklejka, bb - laminat
+    w tabeli format <ilosc><rodzaj> - np pn > 10aa, 20ab; wt > 5ba, 10bb;
+    
+    przykladowy kod jakie wartosci wpisac w jakie miejsce:
+    przykladowy kod na obliczanie ile prepre zostanie uzyte do zrobienia pre:
+
+----------------------- strefa kodu --------------------
+
+#obliczanie wstecz potrzebnych pre-produktow na podstawie liczby wymaganych produktow:
+
+#z inputu dostajemy ilosc potrzebnych, musimy zamowic wiecej bo safety stock
+#safety stock pre-produktow ustalamy na 20% zaokraglone w gore do liczb calkowitych
+#do potrzebnych dodajemy zapas i mamy wielkosc zamowienia do tabelki
+
+#w tabelce na podstawie podanych z inputu dni wpisujemy wartosci zamowien w odpowiednie miejsca
+
+#to co zostanie z produkcji odejmujemy od wyniku nastepnego zamowienia
+#(zeby do produkcji bylo tyle ile przewiduje safety stock dla danego zamowienia a nie wiecej)
+
+#dla kazdego nastepnego produktu tworzy sie osobna tabela, ale wszystkie pre i prepre
+#w obrebie jednego produktu sa w jednej tabeli, kolejne dane sa wprowadzane jedna pod druga 
+#bo zakladamy ze inne produkty sa obiektem zainteresowania innej linii produkcyjnej
+
+----------------------------- obliczenia przykladu ilosc -------------
+#przyklad:
+#rzad 0: stol; 
+#rzad I: 4 nogi, 1 blat;
+#rzad II: noga to 1 walek drewniany i 2 sruby, blat to 1 fragment sklejki i 1 wycinek laminatu 
+#zamowienie przykladowe na 3 stoly:
+
+#produkt juz bez safety stock bo preprodukty maja safety stock
+
+    stolyZamowienie = 3
+
+#
+#rzad I, pre:
+#
+
+    nogiPotrzebne = 4 * stolyZamowienie
+    blatyPotrzebne = 1 * stolyZamowienie
+
+
+# jesli 20% zapasu to bedzie liczba niecalkowita to zaokraglamy zamowienie w gore
+#odciecie wartosci po przecinku i dodanie 1 dla zaokraglenia w gore 20% safety stock
+    
+    nogiZapas = trunc(0.2*nogiPotrzebne)
+    if nogiZapas%1 != 0:
+        nogiZapas += 1
+
+    blatZapas = trunc(0.2*blatyPotrzebne)
+    if blatyZapas%1 != 0:
+        blatyZapas += 1
+
+    nogiZamowienie = nogiPotrzebne + nogiZapas
+    blatyZamowienie = blatyPotrzebne + blatyZapas
+
+#
+# II rzad, prepre:
+#
+
+#elementy nóg wraz z safety stock:
+#
+
+#prepre wkrety
+    nogiWkretyPotrzebne = nogiZamowienie * 4 
+    
+    nogiWkretyZapas = trunc(0.2*nogiSrubyPotrzebne)
+    if nogiWkretyZapas%1 != 0:
+        nogiWkretyZapasZapas += 1
+
+    nogiWkretyZamowienie = nogiWkretyPotrzebne + nogiWkretyZapas
+
+#prepre walek
+    nogiWalekPotrzebne= nogiZamowienie * 1
+
+    nogiWalekZapas = trunc(0.2*nogiWalekPotrzebne)
+    if nogiWalekZapas%1 != 0:
+        nogiWalekZapas += 1
+
+    nogiWalekZamowienie = nogiWalekPotrzebne + nogiWalekZapas
+
+#elementy blatu wraz z safety stock:
+#
+
+#prepre sklejka
+    blatySklejkaPotrzebne = blatyZamowienie * 1
+
+    blatySklejkaZapas = trunc(0.2*blatySklejkaPotrzebne)
+    if blatySklejkaZapas%1 != 0:
+        blatySklejkaZapas += 1
+
+    blatySklejkaZamowienie = blatySklejkaPotrzebne + blatySklejkaZapas
+
+#prepre laminat
+    blatyLaminatPotrzebne = blatyZamowienie * 1
+
+    blatyLaminatZapas = trunc(0.2*blatyLaminatPotrzebne)
+    if blatyLaminatZapas%1 != 0:
+        blatyLaminatZapas += 1
+
+    blatyLaminatZamowienie = blatyLaminatPotrzebne + blatyLaminatZapas
+
+---------- przerobione na uniwersalne dane: -----------
+#kazdy (produkt / pre pr / prepre pr) ma swoj indeks [i][j]. 
+#Dla kazdego takiego samego indeksu sa 2 parametry 
+#- czas pracy potrzebny do doprowadzenia do wyzszego poziomu 
+#- i ilosc materialow potrzebna do zrobienia wymaganej ilosci materialow nizszego rzedu
+#czyli czas wytworzenia to np. 
+# 2tyg zmontowanie prepre + 3tyg zmontowanie pre = 5tyg i jest produkt 
+#czyli ilosc to np. 6x prepre -> 2x pre -> 1x produkt
+
+#zaczynamy liczyc czas od najdalszego rzedu:
+#podana ilosc czasu dla prepre + czas dla pre + czas dla produktu z pre
+#czas zlozenia prepre produktow + czas zlozenia pre produktow = tydzien zlozenia produktu
+#dopiero jak sa zlozone wszystkie prepre produkty to mozna skladac pre produkty, wiec
+#sprawdzam ktory preprodukt ma najwiekszy czas i to jest czas tpp, 
+#potem sprawdzam ktory pre produkt ma najwiekszy czas i to jest tp,
+#tpp+tp = t <- tytydzien zlozenia
+
+#potem przed wrzuceniem danych w tabele [i] i [j] z liczb zamieniamy na a,b,c,d,..., 
+#zeby wyswietlalo sie np 10ab, zamiast 1012
+# ^ te dane pod tabela musza byc podane jako legenda 
+#robi nam sie takie drzewko ilosciowe, ale kazda ta zmienna musi miec jeszcze przypisany tydzien
+#ktory obliczy sie na podstawie inputu, zeby te dane wpisac w odpowiednie miejsce
+#tydz1 - 0, tydz2 - 1, ... ,  tydz7 - 6.
+#
+
+#czyli zeby to zrobic to kazda ilosc ma druga dana - czas wykonania, 
+#od ktorego bedzie sie odejmowalo dni wzgledem zadanego w inpucie terminu zaplanowanego odbioru
+#chlopaki mowili zeby zrobic w formie mapy zeby latwiej bylo uzupelniac w JSON. 
+#rozpisze to jako dictionary pythonowe, ale analogicznie potem bedzie to do przepisania na JSON
+#jako mapa
+
+
+#
+# tutaj zmieniam przyklad ze stolami na zmienne:
+#
+
+rzad 0:
+x - produkt (ilosc zamowiona)
+
+rzad I:
+xp[i] - pre produkt nr i (ilosc potrzebna)
+xps[i] - nadmiar (store) pre produkt nr i 
+xp[i]+xps[i] <- ilosc zamowiona
+
+rzad II:
+xpp[i][j] - prepre produkt nr j pre produktu i (ilosc potrzebna)
+xpps[i][j] - nadmiar (store) prepre produkt nr j pre produktu i
+xpp[i][j] + xpps[i][j] <- ilosc zamowiona
+
+#
+# tutaj tworze kod do obliczania czasu (czyli gdzie w tabelce wpisac jaka ilosc)
+# ten czas bedzie przyporzadkowany do odpowiadajacych ilosci wg rozpisanych zaleznosci na poczatku
+# tego dokumentu
+#
+
+y - na ktory tydzien ma to byc gotowe
+
+tp[i] - czas przerobienia pre produktu w produkt 
+yp[i] - tydzien
+
+tpp[i][j] - czas potrzebny na przerobienie prepre produktu w produkt
+ypp[i][j] - nr tygodnia w ktorym trzeba zaczac zeby zdazyc 
+
+y - ktory dzien (w pre/prepre do obliczenia, w produkcie podane)
+t - (time) ile czasu (na podstawie tego wyznaczam y w prepre/pre)
+---------------------- 0, 1 i 2 rzad ----------------
+potrzeby brutto:        
+    
+    ilosc: <podana>
+    x = input() #produkt
+    x[i] = x * x[i] #pre produkt
+    x[i][j] = x[i] * x[i][j]
+
+    tydzien: <podany>
+    y = input()
+    yp[i] = yp - tp[i]                 #tp[i] podane, yp[i] obliczone na tej podstawie
+    ypp[i][j] = ypp[i] - tpp[i][j]        #tpp[i][j] podane, ypp[i][j] obliczone na tej podstawie
+
+    i laczymy w pary:
+    xy = (x, y) <- (ilosc, data)
+    xy[i] = (x[i],y[i])
+    xy[i][j] = (x[i][j], y[i][j])
+    
+    pary umieszczane sa w tabelce
+
+
+wstepny zapas (literka s):
+
+    ilosc: <podana>
+    xps[i]
+    xpps[i][j]
+
+    tydzien: <od tygodnia poprzedniego zlecenia na nogi lub poczatku kalendarza 
+    kazdy tydzien do tygodnia potrzeby brutto>
+    W TYM PRZYPADKU POZA OBLICZENIEM KONKRETNEGO DNIA TRZEBA WYMIENIC WSTECZ
+    (trudne)
+
+potrzeby netto:
+    
+    ilosc: <potrzeby brutto> - <wstepny zapas>
+    x
+    xpn = xp[i] - xps[i]
+    xppn[i][j] = xpp[i][j] - xpps[i][j]
+    
+    tydzien: <potrzeby brutto>
+    y
+    yp[i]
+    yp[i][j]
+
+    i laczymy w pary:
+    xyn = (x,n) 
+    xypn[i] = (xpn[i],ypn[i])
+    xyppn[i][j] =  (xppn[i][j], yppn[i][j])
+
+wstepne zmontowanie:
+
+    ilosc: <potrzeby netto>
+    przepisac
+
+    tydzien: <potrzeby brutto> - <podany czas na zmontowanie>
+
+
+    i laczymy w pary:
+    zrobic
+
+zaplanowany odbior:
+    ilosc: <potrzeby netto> 
+
+    tydzien: <potrzeby netto>
+
+    i laczymy w pary:
+
+
+
+
+
+
+
+
+
+
