@@ -1,0 +1,20 @@
+#
+# dla ilosci:
+#
+
+rzad 0:
+x - produkt (ilosc zamowiona)
+
+rzad I:
+xp[i] - pre produkt nr i (ilosc potrzebna)
+xps[i] - nadmiar (store) pre produkt nr i 
+xp[i]+xps[i] <- ilosc zamowiona
+
+rzad II:
+xpp[i][j] - prepre produkt nr j pre produktu i (ilosc potrzebna)
+xpps[i][j] - nadmiar (store) prepre produkt nr j pre produktu i
+xpp[i][j] + xpps[i][j] <- ilosc zamowiona
+
+#
+# dla dni:
+#

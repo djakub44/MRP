@@ -263,6 +263,8 @@ zaplanowany odbior:
 
     i laczymy w pary:
 
+#i potem nr tygodnia 
+
 
 
 
