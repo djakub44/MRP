@@ -9,7 +9,7 @@ function ClearListPreProducts() {
 }
 
 //on change drop down
-function ListPreProducts() {
+function ListPreProducts1() {
     const PreProductsListElement = document.getElementById("PreProductsList");
     const NumberOfPreProducts = document.getElementById("PreProductLevel");
     

@@ -17,6 +17,6 @@ function clearProductJson(ProductJsonType){
 }
 
 //prints product in console
-function printProductJson(ProductJsonType){
+function printProductJson(){
     console.log(sessionStorage.getItem("product"))
 }

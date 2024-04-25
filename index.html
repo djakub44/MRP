@@ -18,7 +18,7 @@
     <script src="AddPreProduct.js"></script>
     <script src="FunctionsLib.js"></script>
     <script src="OnLoad.js"></script>
-
+    <script src="add.js"></script>
 
     <div class="container-lg">
         <div class="d-flex justify-content-center w-100">
@@ -26,18 +26,38 @@
         </div>
         <div>
             <div class="py-5">
+                <button id="AddPreProduct" class="btn btn-success ml-2" onclick="AddPreProduct()"> Add </button>
                 <div class="d-flex">
-                    <h2>Add product:</h2>
+                    <h2>Add product:</h2> 
                 </div>
-                <div class="d-flex">
-                    <input type="text" class="form-control w-25" id="PreProductText"
+                <div class="d-flex" id="ProductLvl0">
+                    <input type="text" class="form-control w-25" id="ProductLvl0Name"
                         placeholder="Name of product"></input>
-                    <input type="number" class="form-control w-25 ml-2" id="PreProductQuantity"
-                        placeholder="Quantity of product"></input>
-                    <input type="number" class="form-control w-25 ml-2" id="productCollectionDate"
-                        placeholder="Pre-mounted amount"></input>
+                    <input type="number" class="form-control w-25 ml-2" id="ProductLvl0Gross"
+                        placeholder="Gross Demand"></input>
+                    <input type="number" class="form-control w-25 ml-2" id="ProductLvl0Stock"
+                        placeholder="Preliminary Stock"></input>
+                    <input type="number" class="form-control w-25 ml-2" id="ProductLvl0PreMounted"
+                        placeholder="preMounted"></input>
+                    <input type="number" class="form-control w-25 ml-2" id="ProductLvl0Pickup"
+                        placeholder="Scheduled Pickup"></input> 
+                    <input type="number" class="form-control w-25 ml-2" id="ProductLvl0Production"
+                        placeholder="Production Time"></input>
+                    <input type="number" class="form-control w-25 ml-2" id="ProductLvl0Deadline"
+                        placeholder="Deadline"></input>
                         
-                        
+                        </div>
+                        <div id="ddd"><p>Pre Products:</p>
+                        <select class="form-control w-25" id="PreProductLevel0" onchange="ListPreProducts(this.parentNode.parentNode)">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+
+
                 </div>
                 <br><br>
                 <div class="d-flex">
