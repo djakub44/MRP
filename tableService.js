@@ -24,11 +24,16 @@ async function createProductTable() {
      */
     function createTable(product, level) {
         // Create a table group element
-        let tableGroup = document.createElement("div");
-        tableGroup.className = "d-flex mb-4 justify-content-between level-" + level;
+        let tableGroup = document.getElementById("tableGroup-" + level);
+        if (tableGroup === null) {
+            tableGroup = document.createElement("div");
+            tableGroup.id = "tableGroup-" + level;
+            tableGroup.className = "d-flex mb-4 justify-content-between";
+        }
 
         // Create a table div element
         let tableDiv = document.createElement("div");
+        tableDiv.className = "mx-2";
 
         // Create a product name heading element
         let productName = document.createElement("h4");
