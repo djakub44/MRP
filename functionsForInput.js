@@ -9,14 +9,71 @@
 // tak oznaczone zmienne lacze w np y0g - data poziomu 0 zapotrzebowania brutto
 
 
+function main(){
+
+    //product = getProductJson()
+    const product = {
+        "name": "Table",
+        "grossDemand": 10,
+        "preliminaryStock": 3,
+        "netDemand": 7,
+        "preMounted": 7,
+        "scheduledPickup": 7,
+        "productionTime": 1,
+        "deadline": 8,
+        "preProducts": [
+            {
+                "name": "Tabletop",
+                "grossDemand": 7,
+                "preliminaryStock": 0,
+                "netDemand": 7,
+                "preMounted": 7,
+                "scheduledPickup": 7,
+                "preProducts": []
+            },
+            {
+                "name": "Table leg",
+                "grossDemand": 28,
+                "preliminaryStock": 0,
+                "netDemand": 28,
+                "preMounted": 28,
+                "scheduledPickup": 28,
+                "preProducts": [
+                    {
+                        "name": "leg screws",
+                        "grossDemand": 28,
+                        "preliminaryStock": 0,
+                        "netDemand": 28,
+                        "preMounted": 28,
+                        "scheduledPickup": 7,
+                        "preProducts": []}
+                ]
+            }
+        ]
+    };
+
+    var temp = getGrossDemandP0(product["grossDemand"],product["deadline"])
+    console.log(temp)
+
+
+    for (let i = 0; i < 2 ; i++){
+        //console.log(product["preProducts"][i])
+        
+    }
+    
+    var temp2 = getGrossDemandP1()
+
+}
+
+
+
+
 //poziom 0:
 
-function getGrossDemandP0(){
+function getGrossDemandP0(x0g,y0g){
     
-    x0g = podane
-    y0g = podane
 
-    xy0g = (x0g, y0g) <- (ilosc, data)
+    let xy0g = [x0g, y0g] // (ilosc, data)
     grossDemandP0 = xy0g
 
     return grossDemandP0
@@ -24,10 +81,10 @@ function getGrossDemandP0(){
 
 //poziom 1:
 
-function getGrossDemandP1(){
+function getGrossDemandP1(x0g,q1g,y0g,t1g){
     
-    x1g = x0g * q1g
-    y1g = y0g - t1g
+    let x1g = x0g * q1g
+    let y1g = y0g - t1g
 
     xy1g = (x1g,y1g)
     grossDemandP1 = xy1g

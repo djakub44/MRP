@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const ElementDropdown = document.getElementById("PreProductLevel");
     ElementDropdown.value = "0";
-
+    main()
     Product = {
         Name: "myproduct",
         Preproducts: [
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setProductJson(Product);
     var formattedJson = js_beautify(getProductJson(), { indent_size: 2 });
-    console.log(js_beautify(getProductJson(), { indent_size: 2 }));
+    //console.log(js_beautify(getProductJson(), { indent_size: 2 }));
     // Display the formatted JSON inside the <code> tag
     document.getElementById("productcode").textContent = formattedJson;
 });
