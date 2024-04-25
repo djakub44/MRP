@@ -31,6 +31,8 @@ wszystko dodajemy do jednej tabeli
         if p01 >= 10a & p02 >=10b:
             p2= p2-p1*4 #obliczenie ile zostanie reszty preproduktow z budowy produktu
 
+
+
 #obliczanie wstecz potrzebnych pre-produktow na podstawie liczby wymaganych produktow:
 #safety stock pre-produktow ustalamy na 20% zaokraglone w gore do liczb calkowitych
 
