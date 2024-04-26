@@ -4,9 +4,10 @@
 // t - czas (np. 3 tygodnie), y - data (np. 5-ty tydzien), 
 // q - ilosc do zrobienia jednej rzeczy (np. 4 nogi to 1 stol), 
 // x - ilosc laczna (np. zeby zrobic 10 stolow to potrzeba 40 nog), 
+// Period / Date / AmtOne - amount needed for one item / AmtAll - amount needed for all
 // 0 - poziom 0, 1 - poziom 1, 2 - poziom 2
 // g - gross row, s - stock row,  n - net row, o - ordered row, p - pickup row
-// tak oznaczone zmienne lacze w np y0g - data poziomu 0 zapotrzebowania brutto
+// Gross / Stock / Net / Ordered / Pickup
 
 
 function main(){
@@ -29,6 +30,7 @@ function main(){
                 "netDemand": 7,
                 "preMounted": 7,
                 "scheduledPickup": 7,
+                "productionTime": 1,
                 "preProducts": []
             },
             {
@@ -52,17 +54,28 @@ function main(){
         ]
     };
 
-    var temp = getGrossDemandP0(product["grossDemand"],product["deadline"])
+    var temp = pairGrossDemandP0(product["grossDemand"],product["deadline"])
     console.log(temp)
 
-
-    for (let i = 0; i < 2 ; i++){
-        //console.log(product["preProducts"][i])
-        
+    for (let i = 0; i < product["preProducts"].length; i++){
+    var temp2 = pairGrossDemandP1(
+        product["grossDemand"],
+        product["preProducts"][i][["grossDemand"][i]["grossDemand"]/["grossDemand"]],
+        product["deadline"],
+        product["preProducts"][i]["productionTime"])
+    console.log(temp2)
     }
-    
-    var temp2 = getGrossDemandP1()
 
+    for (let i = 0; i < product["preProducts"].length; i++){
+        for (let j = 0; j < product["preProducts"][i]["preProducts"].length; j++){
+        var temp3 = pairGrossDemandP2(
+            product["preProducts"][i]["grossDemand"],
+            product["preProducts"][i][["preProducts"][i]["grossDemand"]/["grossDemand"]],
+            product["deadline"],
+            product["preProducts"][i]["productionTime"])
+        console.log(temp3)
+        }
+    }
 }
 
 
@@ -70,36 +83,57 @@ function main(){
 
 //poziom 0:
 
-function getGrossDemandP0(x0g,y0g){
+function pairGrossDemandP0(gross0AmtAll,gross0Date){
     
-
-    let xy0g = [x0g, y0g] // (ilosc, data)
-    grossDemandP0 = xy0g
+    let grossDemandP0 = [gross0AmtAll,gross0Date]
 
     return grossDemandP0
     };
 
 //poziom 1:
 
-function getGrossDemandP1(x0g,q1g,y0g,t1g){
+function pairGrossDemandP1(gross0AmtAll,gross1AmtOne,gross0Date,gross1Period){
     
-    let x1g = x0g * q1g
-    let y1g = y0g - t1g
+    let gross1AmtAll = gross0AmtAll * gross1AmtOne
+    let gross1Date = gross0Date - gross1Period
 
-    xy1g = (x1g,y1g)
-    grossDemandP1 = xy1g
+    let grossDemandP1 = [gross1AmtAll,gross1Date]
 
     return grossDemandP1
 }
 
 //poziom 2:
 
-function getGrossDemandP2(){
+function pairGrossDemandP2(gross1AmtAll,gross2AmtOne,gross1Date,gross2Period){
     
-    x2g = x1g * q2g
-    y2g = y1g - t2g
-
-    xy2g = (x2g,y2g)
-    grossDemandP2 = xy2g
+    let gross2AmtAll = gross1AmtAll * gross2AmtOne
+    let gross2Date = gross1Date - gross2Period
+    
+    let grossDemandP2 = [gross2AmtAll,gross2Date]
+    
     return grossDemandP2
 }
+
+// potrzeby brutto:
+//     ilosc: <podana>
+//     tydzien: <podany>
+
+// wstepny zapas:
+//     ilosc: <podana>
+//     tydzien: <od dnia poprzedniego zlecenia na nogi lub poczatku kalendarza 
+//     kazdy tydzien do potrzeby brutto>
+
+// potrzeby netto:
+//     ilosc: <potrzeby brutto> - <wstepny zapas>
+//     tydzien: <potrzeby brutto>
+
+// wstepne zmontowanie:
+//     ilosc: <potrzeby netto>
+//     tydzien: <potrzeby brutto> - <podany czas na zmontowanie>
+
+// zaplanowany odbior:
+//     ilosc: <potrzeby netto> 
+//     tydzien: <potrzeby netto>
+// (chyba ze dodamy zmienna ile czasu trwa dostawa do klienta ale tego nigdzie nie bylo wymagane)
+//
+//dodatkowo trzeba zalozyc jakis safety stock dla pre i prepre - np 20% z zaokragleniem w dol
