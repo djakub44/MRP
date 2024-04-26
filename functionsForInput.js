@@ -209,6 +209,7 @@ const product = getProductJson();
     //     }
     // }
     createProductTable()
+    
 }
 
 

@@ -6,7 +6,8 @@ function getJsonFile() {
         .then((data) => {
             return data;
         });
-
+        
+    //   return getProductJson()
 }
 
 /**
@@ -16,7 +17,7 @@ function getJsonFile() {
 async function createProductTable() {
     // Retrieve JSON data
     let productsJson = await getJsonFile();
-
+    console.log(getProductJson())
     /**
      * Recursively creates a table for a product and its pre-products.
      * @param {Object} product - The product object.
@@ -207,4 +208,4 @@ async function createProductTable() {
     createTable(productsJson.product, 0);
 }
 
-createProductTable();
+
