@@ -57,7 +57,7 @@ function CreateJson(zerolvl,sel) {
 
 
         if (zerolvl){
-            console.log(product)
+            setProductJson(product)
         }
         else
         {
@@ -65,37 +65,6 @@ function CreateJson(zerolvl,sel) {
         }
 
             
-
-
-/*
-
-            if (children[2].value-children[3].value < 0 ) 
-            {
-                netDemand = 0
-            } else 
-            {
-                netDemand = children[2].value-children[3].value
-            }
-            
-
-
-            product = {
-                "name": children[1].value,
-                "grossDemand": children[2].value,
-                "preliminaryStock": children[3].value,
-                "netDemand": netDemand,
-                "preMounted": children[5].value,
-                "scheduledPickup": children[5].value,
-                "productionTime": children[6].value,
-                "deadline": children[7].value,
-                "preProducts":[]
-            }
-    
-
-
-    setProductJson(product)
-    printProductJson()
-    */
    
 }
 
