@@ -36,8 +36,4 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     setProductJson(Product);
-    var formattedJson = js_beautify(getProductJson(), { indent_size: 2 });
-    //console.log(js_beautify(getProductJson(), { indent_size: 2 }));
-    // Display the formatted JSON inside the <code> tag
-    document.getElementById("productcode").textContent = formattedJson;
 });
