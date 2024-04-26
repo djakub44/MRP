@@ -1,8 +1,8 @@
 //arguments should always be type of json (object)
 
 //returns json object of product item from storage
-function getProductJson(ProductJsonType){
-    return sessionStorage.getItem("product")
+function getProductJson(){
+    return JSON.parse(sessionStorage.getItem("product"))
 }   
 
 //set or update product item in storage

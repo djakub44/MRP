@@ -6,6 +6,7 @@ function getJsonFile() {
         .then((data) => {
             return data;
         });
+
 }
 
 /**

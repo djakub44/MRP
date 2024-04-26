@@ -8,7 +8,7 @@
 
 
 function main(){
-
+/*
     //product = getProductJson()
     const product = {
         "name": "Table",
@@ -59,15 +59,18 @@ function main(){
         ]
     };
 
+*/
 
+const product = getProductJson();
 
 // logi dla potrzeby brutto
-    
+    console.log(product)
     //poziom 0
     var tempG0 = pairGrossDemand0(product["grossDemand"],product["deadline"])
     console.log(tempG0)
 
     //poziom 1
+
     for (let i = 0; i < product["preProducts"].length; i++){
     var tempG1 = pairGrossDemand1(
         product["netDemand"],
@@ -205,6 +208,7 @@ function main(){
     //     console.log(tempN2)
     //     }
     // }
+    createProductTable()
 }
 
 

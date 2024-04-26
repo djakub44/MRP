@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const ElementDropdown = document.getElementById("PreProductLevel");
-    ElementDropdown.value = "0";
-    main()
+
+    //main()
     Product = {
         Name: "myproduct",
         Preproducts: [
@@ -35,5 +34,5 @@ document.addEventListener("DOMContentLoaded", function () {
         ],
     };
 
-    setProductJson(Product);
+    //setProductJson(Product);
 });

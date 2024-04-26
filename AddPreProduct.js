@@ -3,7 +3,6 @@ function getPreproducts(children,number){
     let preproduct = {}
 
     let i = 0
-    //console.log(children)
 
     while(i<(number)){
 
@@ -58,6 +57,9 @@ function CreateJson(zerolvl,sel) {
 
         if (zerolvl){
             setProductJson(product)
+            printProductJson()
+            console.log(product)
+            console.log(product["preProducts"].length)
         }
         else
         {
