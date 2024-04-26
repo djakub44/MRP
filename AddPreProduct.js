@@ -51,6 +51,7 @@ function CreateJson(zerolvl,sel) {
             "scheduledPickup": arrData[4],
             "productionTime": arrData[5],
             "deadline": arrData[6],
+            "amtForUnit" : arrData[7],
             "preProducts" : getPreproducts(ElementProduct.children[2],ElementProduct.children[1].value)
         }
 
