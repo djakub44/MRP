@@ -1,23 +1,12 @@
 let tablesContainer = document.getElementById("tablesContainer");
 
-function getJsonFile() {
-    return fetch("products.json")
-        .then((response) => response.json())
-        .then((data) => {
-            return data;
-        });
-        
-    //   return getProductJson()
-}
-
 /**
  * Creates a product table and appends it to the DOM.
  * @returns {void}
  */
 async function createProductTable() {
     // Retrieve JSON data
-    let productsJson = await getJsonFile();
-    console.log(getProductJson())
+    let productsJson = await getProductJson();
     /**
      * Recursively creates a table for a product and its pre-products.
      * @param {Object} product - The product object.
@@ -40,6 +29,7 @@ async function createProductTable() {
         // Create a product name heading element
         let productName = document.createElement("h4");
         productName.innerHTML = product.name;
+    
 
         // Create a table element
         let table = document.createElement("table");
@@ -62,7 +52,7 @@ async function createProductTable() {
         tableHead = document.createElement("th");
         tableHead.innerHTML = "Week";
         tableRow.appendChild(tableHead);
-        for (let i = 1; i <= productsJson.product.deadline; i++) {
+        for (let i = 1; i <= productsJson.deadline; i++) {
             td = document.createElement("td");
             td.innerHTML = i;
             tableRow.appendChild(td);
@@ -75,16 +65,16 @@ async function createProductTable() {
         tableHead = document.createElement("th");
         tableHead.innerHTML = "Gross demand";
         tableRow.appendChild(tableHead);
-        for (let i = 1; i <= productsJson.product.deadline; i++) {
+        for (let i = 1; i <= productsJson.deadline; i++) {
             td = document.createElement("td");
             if (
                 level != 0 &&
                 i ==
-                    productsJson.product.deadline -
-                        (productsJson.product.productionTime + level)
+                    productsJson.deadline -
+                        (productsJson.productionTime + level)
             ) {
                 td.innerHTML = product.grossDemand;
-            } else if (level == 0 && i == productsJson.product.deadline) {
+            } else if (level == 0 && i == productsJson.deadline) {
                 td.innerHTML = product.grossDemand;
             }
             tableRow.appendChild(td);
@@ -97,16 +87,16 @@ async function createProductTable() {
         tableHead = document.createElement("th");
         tableHead.innerHTML = "Preliminary stock";
         tableRow.appendChild(tableHead);
-        for (let i = 1; i <= productsJson.product.deadline; i++) {
+        for (let i = 1; i <= productsJson.deadline; i++) {
             td = document.createElement("td");
             if (
                 level != 0 &&
                 i <=
-                    productsJson.product.deadline -
-                        (productsJson.product.productionTime + level)
+                    productsJson.deadline -
+                        (productsJson.productionTime + level)
             ) {
                 td.innerHTML = product.preliminaryStock;
-            } else if (level == 0 && i <= productsJson.product.deadline) {
+            } else if (level == 0 && i <= productsJson.deadline) {
                 td.innerHTML = product.preliminaryStock;
             }
             tableRow.appendChild(td);
@@ -119,16 +109,16 @@ async function createProductTable() {
         tableHead = document.createElement("th");
         tableHead.innerHTML = "Net demand";
         tableRow.appendChild(tableHead);
-        for (let i = 1; i <= productsJson.product.deadline; i++) {
+        for (let i = 1; i <= productsJson.deadline; i++) {
             td = document.createElement("td");
             if (
                 level != 0 &&
                 i ==
-                    productsJson.product.deadline -
-                        (productsJson.product.productionTime + level)
+                    productsJson.deadline -
+                        (productsJson.productionTime + level)
             ) {
                 td.innerHTML = product.netDemand;
-            } else if (level == 0 && i == productsJson.product.deadline) {
+            } else if (level == 0 && i == productsJson.deadline) {
                 td.innerHTML = product.netDemand;
             }
             tableRow.appendChild(td);
@@ -145,16 +135,16 @@ async function createProductTable() {
             tableHead.innerHTML = "Ordered";
         }
         tableRow.appendChild(tableHead);
-        for (let i = 1; i <= productsJson.product.deadline; i++) {
+        for (let i = 1; i <= productsJson.deadline; i++) {
             td = document.createElement("td");
             if (
                 level != 0 &&
                 i ==
-                    productsJson.product.deadline -
-                        (productsJson.product.productionTime + level + 1)
+                    productsJson.deadline -
+                        (productsJson.productionTime + level + 1)
             ) {
                 td.innerHTML = product.preMounted;
-            } else if (level == 0 && i == productsJson.product.deadline - 1) {
+            } else if (level == 0 && i == productsJson.deadline - 1) {
                 td.innerHTML = product.preMounted;
             }
             tableRow.appendChild(td);
@@ -167,16 +157,16 @@ async function createProductTable() {
         tableHead = document.createElement("th");
         tableHead.innerHTML = "Scheduled pickup";
         tableRow.appendChild(tableHead);
-        for (let i = 1; i <= productsJson.product.deadline; i++) {
+        for (let i = 1; i <= productsJson.deadline; i++) {
             td = document.createElement("td");
             if (
                 level != 0 &&
                 i ==
-                    productsJson.product.deadline -
-                        (productsJson.product.productionTime + level)
+                    productsJson.deadline -
+                        (productsJson.productionTime + level)
             ) {
                 td.innerHTML = product.scheduledPickup;
-            } else if (level == 0 && i == productsJson.product.deadline) {
+            } else if (level == 0 && i == productsJson.deadline) {
                 td.innerHTML = product.scheduledPickup;
             }
             tableRow.appendChild(td);
@@ -205,7 +195,7 @@ async function createProductTable() {
     }
 
     // Create the table for the main product
-    createTable(productsJson.product, 0);
+    createTable(productsJson, 0);
 }
 
 
