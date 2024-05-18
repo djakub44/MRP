@@ -1,40 +1,40 @@
 <div class="container-xl text-start">
-    <h1 style="text-align: center;color: var(--bs-emphasis-color);">Calculate MRP for your product!</h1>
-    <form id="productForm">
-        <h1 style="color: var(--bs-emphasis-color);">Add product details:</h1>
-        <div class="row">
-            <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
-                    Name</label><input class="form-control" type="text" /></div>
-            <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
-                    Gross </label><input class="form-control" type="number" /></div>
-            <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
-                    in Stock</label><input class="form-control" type="number" /></div>
-            <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
-                    pre mounted</label><input class="form-control" type="number" /></div>
-        </div>
-        <div class="row gx-5" style="margin: 20px -24px;">
-            <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
-                    Production</label><input class="form-control" type="number" /></div>
-            <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
-                    Deadline</label><input class="form-control" type="number" /></div>
-            <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Amount
-                    for unit</label><input class="form-control" type="number" /></div>
-            <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
-                    Pickup</label><input class="form-control" type="number" /></div>
-            <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Amount
-                    of pre products</label><select id="product-details" class="form-select"
-                    onchange="showPreproductInputs(this, &#39;pre-product-input-div&#39;)">
-                    <optgroup label="How many pre products?">
-                        <option value="0" selected>0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </optgroup>
-                </select></div>
-        </div>
-        <div id="pre-product-input-div"></div>
-        <div
-            style="text-align: center;background: var(--bs-btn-active-border-color);--bs-success: #198754;--bs-success-rgb: 25,135,84;padding: 0 0 20px 0;">
-            <input class="btn btn-primary" type="submit" style="text-align: center;background: #198754;" /></div>
-    </form>
-</div>
-<script src="inputs.js"></script>
+        <h1 style="text-align: center;color: var(--bs-emphasis-color);">Calculate MRP for your product!</h1>
+        <form id="productForm">
+            <h1 style="color: var(--bs-emphasis-color);">Add product details</h1>
+            <div class="row">
+                <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
+                        Name</label><input class="form-control" type="text" /></div>
+                <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
+                        Gross </label><input class="form-control" type="number" /></div>
+                <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
+                        in Stock</label><input class="form-control" type="number" /></div>
+                <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
+                        pre mounted</label><input class="form-control" type="number" /></div>
+                <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
+                        Production</label><input class="form-control" type="number" /></div>
+                <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
+                        Deadline</label><input class="form-control" type="number" /></div>
+                <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Amount
+                        for unit</label><input class="form-control" type="number" /></div>
+                <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Product
+                        Pickup</label><input class="form-control" type="number" /></div>
+                <div class="col"><label class="form-label" style="color: var(--bs-emphasis-color);font-size: 20px;">Amount
+                        of pre products</label><select id="product-details" class="form-select"
+                        onchange="showPreproductInputs(this, &#39;pre-product-input-div&#39;)">
+                        <optgroup label="How many pre products?">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </optgroup>
+                    </select></div>
+            </div>
+            <div id="pre-product-input-div"></div>
+            <div
+                style="text-align: center;background: var(--bs-btn-active-border-color);--bs-success: #198754;--bs-success-rgb: 25,135,84;padding: 0 0 20px 0;">
+                <input class="btn btn-primary" type="submit" style="text-align: center;background: #198754;" /></div>
+        </form>
+        <button id="AddPreProduct" class="btn btn-success ml-2" onclick="pies()"> Add </button>
+    </div>
+    <script src="inputs.js"></script>
+    <script src="AddPreProductNew.js"></script>
