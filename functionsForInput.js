@@ -150,64 +150,63 @@ const product = getProductJson();
         }
     }
 
-//logow dla wstepnego zmontowania i dla zaplanowanego odbioru nie dokonczylem ale to proste juz, 
-//funkcje do tych logow sa gotowe i dobre na bank
+
 
 // logi dla wstepnego zmontowania
 
-    // //poziom 0
-    // var tempM0 = pairPreMounted0(product["grossDemand"],product["preliminaryStock"],product["deadline"])
-    // console.log(tempM0)
+    //poziom 0
+    var tempM0 = pairPreMounted0(product["netDemand"],product["deadline"],product["productionTime"])
+    console.log(tempM0)
 
-    // //poziom 1
-    // for (let i = 0; i < product["preProducts"].length; i++){
-    // var tempN1 = pairPreMounted1(
-    //     product["preProducts"][i]["grossDemand"],
-    //     product["preProducts"][i]["preliminaryStock"],
-    //     product["preProducts"][i]["deadline"]
-    //     )
-    // console.log(tempM1)
-    // }
+    //poziom 1
+    for (let i = 0; i < product["preProducts"].length; i++){
+    var tempM1 = pairPreMounted1(
+        product["preProducts"][i]["netDemand"],
+        product["preProducts"][i]["deadline"],
+        product["preProducts"][i]["productionTime"]
+        )
+    console.log(tempM1)
+    }
 
-    // //poziom 2
-    // for (let i = 0; i < product["preProducts"].length; i++){
-    //     for (let j = 0; j < product["preProducts"][i]["preProducts"].length; j++){
-    //     var tempN2 = pairNetDemand2(
-    //         product["preProducts"][i]["preProducts"][j]["grossDemand"],
-    //         product["preProducts"][i]["preProducts"][j]["preliminaryStock"],
-    //         product["preProducts"][i]["preProducts"][j]["deadline"]
-    //         )
-    //     console.log(tempN2)
-    //     }
-    // }
+    //poziom 2
+    for (let i = 0; i < product["preProducts"].length; i++){
+        for (let j = 0; j < product["preProducts"][i]["preProducts"].length; j++){
+        var tempM2 = pairPreMounted2(
+            product["preProducts"][i]["preProducts"][j]["netDemand"],
+            product["preProducts"][i]["preProducts"][j]["deadline"],
+            product["preProducts"][i]["preProducts"][j]["productionTime"]
+            )
+        console.log(tempM2)
+        }
+    }
 
 // logi dla zaplanowanego odbioru
 
-    // //poziom 0
-    // var tempM0 = pairPreMounted0(product["grossDemand"],product["preliminaryStock"],product["deadline"])
-    // console.log(tempM0)
+    //poziom 0
+    var tempS0 = pairScheduledPickup0(product["netDemand"],product["deadline"])
+    console.log(tempS0)
 
     // //poziom 1
-    // for (let i = 0; i < product["preProducts"].length; i++){
-    // var tempN1 = pairPreMounted1(
-    //     product["preProducts"][i]["grossDemand"],
-    //     product["preProducts"][i]["preliminaryStock"],
-    //     product["preProducts"][i]["deadline"]
-    //     )
-    // console.log(tempM1)
-    // }
+    for (let i = 0; i < product["preProducts"].length; i++){
+    var tempS1 = pairScheduledPickup1(
+        product["preProducts"][i]["netDemand"],
+        product["preProducts"][i]["deadline"],
+        )
+    console.log(tempS1)
+    }
 
-    // //poziom 2
-    // for (let i = 0; i < product["preProducts"].length; i++){
-    //     for (let j = 0; j < product["preProducts"][i]["preProducts"].length; j++){
-    //     var tempN2 = pairNetDemand2(
-    //         product["preProducts"][i]["preProducts"][j]["grossDemand"],
-    //         product["preProducts"][i]["preProducts"][j]["preliminaryStock"],
-    //         product["preProducts"][i]["preProducts"][j]["deadline"]
-    //         )
-    //     console.log(tempN2)
-    //     }
-    // }
+    //poziom 2
+    for (let i = 0; i < product["preProducts"].length; i++){
+        for (let j = 0; j < product["preProducts"][i]["preProducts"].length; j++){
+        var tempS2 = pairScheduledPickup2(
+            product["preProducts"][i]["preProducts"][j]["netDemand"],
+            product["preProducts"][i]["preProducts"][j]["deadline"],
+            )
+        console.log(tempS2)
+        }
+    }
+
+
     createProductTable()
     
 }
