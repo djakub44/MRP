@@ -64,10 +64,11 @@ function main(){
 const product = getProductJson();
 
 // logi dla potrzeby brutto
-    console.log(product)
     //poziom 0
     var tempG0 = pairGrossDemand0(product["grossDemand"],product["deadline"])
+    console.log("grossDemand0:")
     console.log(tempG0)
+    sessionStorage.setItem("grossDemand0", tempG0)
 
     //poziom 1
 
@@ -77,7 +78,9 @@ const product = getProductJson();
         product["preProducts"][i]["amtForUnit"],
         product["deadline"],
         product["productionTime"])
-    console.log(tempG1)
+        console.log("grossDemand1:")
+        console.log(tempG1)
+        sessionStorage.setItem("grossDemand1", tempG1)
     }
 
     //poziom 2
@@ -88,7 +91,9 @@ const product = getProductJson();
             product["preProducts"][i]["preProducts"][j]["amtForUnit"],
             product["preProducts"][i]["deadline"],
             product["preProducts"][i]["productionTime"])
-        console.log(tempG2)
+            console.log("grossDemand2:")
+            console.log(tempG2)
+            sessionStorage.setItem("grossDemand2", tempG2)
         }
     }
 
@@ -98,7 +103,9 @@ const product = getProductJson();
 
     //poziom 0
     var tempS0 = pairPreliminaryStock0(product["preliminaryStock"],product["deadline"])
+    console.log("preliminaryStock0:")
     console.log(tempS0)
+    sessionStorage.setItem("preliminaryStock0", tempS0)
 
     //poziom 1
     for (let i = 0; i < product["preProducts"].length; i++){
@@ -106,7 +113,9 @@ const product = getProductJson();
         product["preProducts"][i]["preliminaryStock"],
         product["preProducts"][i]["deadline"],
         )
-    console.log(tempP1)
+        console.log("preliminaryStock1:")
+        console.log(tempP1)
+        sessionStorage.setItem("preliminaryStock1", tempP1)
     }
 
     //poziom 2
@@ -116,7 +125,9 @@ const product = getProductJson();
         product["preProducts"][i]["preProducts"][j]["preliminaryStock"],
         product["preProducts"][i]["preProducts"][j]["deadline"],
         )
-        console.log(tempP2)
+            console.log("preliminaryStock2:")
+            console.log(tempP2)
+            sessionStorage.setItem("preliminaryStock2", tempP2)
         }
     }
 
@@ -126,7 +137,9 @@ const product = getProductJson();
     
     //poziom 0
     var tempN0 = pairNetDemand0(product["grossDemand"],product["preliminaryStock"],product["deadline"])
+    console.log("netDemand0:")
     console.log(tempN0)
+    sessionStorage.setItem("netDemand0", tempN0)
 
     //poziom 1
     for (let i = 0; i < product["preProducts"].length; i++){
@@ -135,7 +148,9 @@ const product = getProductJson();
         product["preProducts"][i]["preliminaryStock"],
         product["preProducts"][i]["deadline"]
         )
-    console.log(tempN1)
+        console.log("netDemand1:")
+        console.log(tempN1)
+        sessionStorage.setItem("netDemand1", tempN1)
     }
 
     //poziom 2
@@ -146,67 +161,70 @@ const product = getProductJson();
             product["preProducts"][i]["preProducts"][j]["preliminaryStock"],
             product["preProducts"][i]["preProducts"][j]["deadline"]
             )
-        console.log(tempN2)
+            console.log("netDemand2:")
+            console.log(tempN2)
+            sessionStorage.setItem("netDemand2", tempN2)
         }
     }
 
-
+//logow dla wstepnego zmontowania i dla zaplanowanego odbioru nie dokonczylem ale to proste juz, 
+//funkcje do tych logow sa gotowe i dobre na bank
 
 // logi dla wstepnego zmontowania
 
-    //poziom 0
-    var tempM0 = pairPreMounted0(product["netDemand"],product["deadline"],product["productionTime"])
-    console.log(tempM0)
+    // //poziom 0
+    // var tempM0 = pairPreMounted0(product["grossDemand"],product["preliminaryStock"],product["deadline"])
+    // console.log(tempM0)
 
-    //poziom 1
-    for (let i = 0; i < product["preProducts"].length; i++){
-    var tempM1 = pairPreMounted1(
-        product["preProducts"][i]["netDemand"],
-        product["preProducts"][i]["deadline"],
-        product["preProducts"][i]["productionTime"]
-        )
-    console.log(tempM1)
-    }
+    // //poziom 1
+    // for (let i = 0; i < product["preProducts"].length; i++){
+    // var tempN1 = pairPreMounted1(
+    //     product["preProducts"][i]["grossDemand"],
+    //     product["preProducts"][i]["preliminaryStock"],
+    //     product["preProducts"][i]["deadline"]
+    //     )
+    // console.log(tempM1)
+    // }
 
-    //poziom 2
-    for (let i = 0; i < product["preProducts"].length; i++){
-        for (let j = 0; j < product["preProducts"][i]["preProducts"].length; j++){
-        var tempM2 = pairPreMounted2(
-            product["preProducts"][i]["preProducts"][j]["netDemand"],
-            product["preProducts"][i]["preProducts"][j]["deadline"],
-            product["preProducts"][i]["preProducts"][j]["productionTime"]
-            )
-        console.log(tempM2)
-        }
-    }
+    // //poziom 2
+    // for (let i = 0; i < product["preProducts"].length; i++){
+    //     for (let j = 0; j < product["preProducts"][i]["preProducts"].length; j++){
+    //     var tempN2 = pairNetDemand2(
+    //         product["preProducts"][i]["preProducts"][j]["grossDemand"],
+    //         product["preProducts"][i]["preProducts"][j]["preliminaryStock"],
+    //         product["preProducts"][i]["preProducts"][j]["deadline"]
+    //         )
+    //     console.log(tempN2)
+    //     }
+    // }
 
 // logi dla zaplanowanego odbioru
 
-    //poziom 0
-    var tempS0 = pairScheduledPickup0(product["netDemand"],product["deadline"])
-    console.log(tempS0)
+    // //poziom 0
+    // var tempM0 = pairPreMounted0(product["grossDemand"],product["preliminaryStock"],product["deadline"])
+    // console.log(tempM0)
 
     // //poziom 1
-    for (let i = 0; i < product["preProducts"].length; i++){
-    var tempS1 = pairScheduledPickup1(
-        product["preProducts"][i]["netDemand"],
-        product["preProducts"][i]["deadline"],
-        )
-    console.log(tempS1)
-    }
+    // for (let i = 0; i < product["preProducts"].length; i++){
+    // var tempN1 = pairPreMounted1(
+    //     product["preProducts"][i]["grossDemand"],
+    //     product["preProducts"][i]["preliminaryStock"],
+    //     product["preProducts"][i]["deadline"]
+    //     )
+    // console.log(tempM1)
+    // }
 
-    //poziom 2
-    for (let i = 0; i < product["preProducts"].length; i++){
-        for (let j = 0; j < product["preProducts"][i]["preProducts"].length; j++){
-        var tempS2 = pairScheduledPickup2(
-            product["preProducts"][i]["preProducts"][j]["netDemand"],
-            product["preProducts"][i]["preProducts"][j]["deadline"],
-            )
-        console.log(tempS2)
-        }
-    }
-
-
+    // //poziom 2
+    // for (let i = 0; i < product["preProducts"].length; i++){
+    //     for (let j = 0; j < product["preProducts"][i]["preProducts"].length; j++){
+    //     var tempN2 = pairNetDemand2(
+    //         product["preProducts"][i]["preProducts"][j]["grossDemand"],
+    //         product["preProducts"][i]["preProducts"][j]["preliminaryStock"],
+    //         product["preProducts"][i]["preProducts"][j]["deadline"]
+    //         )
+    //     console.log(tempN2)
+    //     }
+    // }
     createProductTable()
     
 }

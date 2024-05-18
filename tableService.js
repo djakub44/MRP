@@ -68,18 +68,23 @@ async function createProductTable() {
         for (let i = 1; i <= productsJson.deadline; i++) {
             td = document.createElement("td");
             
-            console.log("pairGrossDemand0[0]");
-            console.log(pairGrossDemand0);
-
-            if (pairGrossDemand0[1] == i && level == 0) {
-                td.innerHTML = pairGrossDemand0[0];
-            } else if (pairGrossDemand1[1] == i && level == 1) {
-                td.innerHTML = pairGrossDemand1[0];
-            } else if (pairGrossDemand2[1] == i && level == 2) {
-                td.innerHTML = pairGrossDemand2[0];
-            } else {
-                td.innerHTML = 0; 
+            if (ssget("grossDemand0")[1] == i && level == 0) {
+                console.log("grossDemand0------------")
+                console.log(ssget("grossDemand0")[0]);
+                td.innerHTML = ssget("grossDemand0")[0];
             }
+
+            try {
+                if (ssget("grossDemand1")[1] == i && level == 1) {
+                    td.innerHTML = ssget("grossDemand1")[0];
+                }
+            } catch (error) {}
+
+            try {
+                if (ssget("grossDemand2")[1] == i && level == 2) {
+                    td.innerHTML = ssget("grossDemand2")[0];
+                }
+            } catch (error) {}
 
             tableRow.appendChild(td);
         }
@@ -93,12 +98,12 @@ async function createProductTable() {
         tableRow.appendChild(tableHead);
         for (let i = 1; i <= productsJson.deadline; i++) {
             td = document.createElement("td");
-            if (level == 0 && pairPreliminaryStock0[1] <= i) {
-                td.innerHTML = pairPreliminaryStock0[0];
-            } else if (level == 1 && i <= pairPreliminaryStock1[1]) {
-                td.innerHTML = pairPreliminaryStock1[0];
-            }else if (level == 2 && i <= pairPreliminaryStock2[1]) {
-                td.innerHTML = pairPreliminaryStock2[0];
+            if (level == 0 && pairPreliminaryStock0()[1] <= i) {
+                td.innerHTML = pairPreliminaryStock0()[0];
+            } else if (level == 1 && i <= pairPreliminaryStock1()[1]) {
+                td.innerHTML = pairPreliminaryStock1()[0];
+            }else if (level == 2 && i <= pairPreliminaryStock2()[1]) {
+                td.innerHTML = pairPreliminaryStock2()[0];
             } else {
                 td.innerHTML = 0;
             }
@@ -115,12 +120,12 @@ async function createProductTable() {
         tableRow.appendChild(tableHead);
         for (let i = 1; i <= productsJson.deadline; i++) {
             td = document.createElement("td");
-            if (level == 0 && i == pairNetDemand0[1]) {
-                td.innerHTML = pairNetDemand0[0];
-            } else if (level == 1 && i == pairNetDemand1[1]) {
-                td.innerHTML = pairNetDemand1[0];
-            } else if (level == 2 && i == pairNetDemand2[1]) {
-                td.innerHTML = pairNetDemand2[0];
+            if (level == 0 && i == pairNetDemand0()[1]) {
+                td.innerHTML = pairNetDemand0()[0];
+            } else if (level == 1 && i == pairNetDemand1()[1]) {
+                td.innerHTML = pairNetDemand1()[0];
+            } else if (level == 2 && i == pairNetDemand2()[1]) {
+                td.innerHTML = pairNetDemand2()[0];
             } else {
                 td.innerHTML = 0;
             }
@@ -141,12 +146,12 @@ async function createProductTable() {
         tableRow.appendChild(tableHead);
         for (let i = 1; i <= productsJson.deadline; i++) {
             td = document.createElement("td");
-            if (level == 0 && i == pairPreMounted0[1]) {
-                td.innerHTML = pairPreMounted0[0];
-            } else if (level == 1 && i == pairPreMounted1[1]) {
-                td.innerHTML = pairPreMounted1[0];
-            } else if (level == 2 && i == pairPreMounted2[1]) {
-                td.innerHTML = pairPreMounted2[0];
+            if (level == 0 && i == pairPreMounted0()[1]) {
+                td.innerHTML = pairPreMounted0()[0];
+            } else if (level == 1 && i == pairPreMounted1()[1]) {
+                td.innerHTML = pairPreMounted1()[0];
+            } else if (level == 2 && i == pairPreMounted2()[1]) {
+                td.innerHTML = pairPreMounted2()[0];
             } else {
                 td.innerHTML = 0;
             }
@@ -163,12 +168,12 @@ async function createProductTable() {
         tableRow.appendChild(tableHead);
         for (let i = 1; i <= productsJson.deadline; i++) {
             td = document.createElement("td");
-            if (level == 0 && i == pairScheduledPickup0[1]) {
-                td.innerHTML = product.scheduledPickup;
-            } else if (level == 1 && i == pairScheduledPickup1[1]){
-                td.innerHTML = pairScheduledPickup1[0];
-            } else if (level == 2 && i == pairScheduledPickup2[1]){
-                td.innerHTML = pairScheduledPickup2[0];
+            if (level == 0 && i == pairScheduledPickup0()[1]) {
+                td.innerHTML = pairScheduledPickup0()[0];
+            } else if (level == 1 && i == pairScheduledPickup1()[1]){
+                td.innerHTML = pairScheduledPickup1()[0];
+            } else if (level == 2 && i == pairScheduledPickup2()[1]){
+                td.innerHTML = pairScheduledPickup2()[0];
             } else {
                 td.innerHTML = 0;
             }
@@ -201,5 +206,11 @@ async function createProductTable() {
     // Create the table for the main product
     createTable(productsJson, 0);
 }
+
+function ssget(name) {
+    return sessionStorage.getItem(name);
+}
+
+
 
 
